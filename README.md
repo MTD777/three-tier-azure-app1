@@ -34,9 +34,7 @@ You may deploy this PoC app in your Azure subscriptiong by cloning this reposito
 1. Clone this repo into your local system:
 ```
 # Clone repo. 
-
 git clone https://github.com/MTD777/three-tier-azure-app1
-
 ```
 2. Navigate to the root folder of the project:
 
