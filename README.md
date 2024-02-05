@@ -31,37 +31,49 @@ You will need terraform, git, and an Azure subscription to deploy this project a
 
 You may deploy this PoC app in your Azure subscriptiong by cloning this repository and deploying using terraform (I will not cover how to set up Terraform, but you can download it [here](<https://developer.hashicorp.com/terraform/downloads>) and help to set it up [here](<https://learn.microsoft.com/en-us/azure/developer/terraform/get-started-cloud-shell-bash?tabs=bash>)), overall steps using Azure CLI should be:
 
+1. Clone this repo into your local system:
 ```
 # Clone repo. 
 
 git clone https://github.com/MTD777/three-tier-azure-app1
 
-# Navigate to the root folder of the project
+```
+2. Navigate to the root folder of the project:
 
+```
 cd three-tier-azure-app1
+```
 
-# Login to your Azure account and set your subscription
+3. Login to your Azure account and set your subscription:
 
+```
 az login
 az account show
 az account set --subscription "Replace_with_your_Subscription_ID"
+```
 
-# Initialize deployment - initializes a working directory containing Terraform configuration files
+4. Initialize deployment - initializes a working directory containing Terraform configuration files
 
+```
 terraform init
+```
 
-# Validate terraform for syntax errors
+5. Validate terraform for syntax errors
 
+```
 terraform validate
+```
 
-# Makes a "plan" of our deployment (Think of it as a preview of what our deployment will do, it will check the syntax for errors and allow us to check the resources that will be deployed but without deployed them yet)
+6. Make a "plan" of our deployment (Think of it as a preview of what our deployment will do, it will check the syntax for errors and allow us to check the resources that will be deployed but without deployed them yet):
 
+```
 terraform plan -out=tfplan
+```
 
-# Applies our deployment plan
+7. Apply deployment plan:
 
+```
 terraform apply "tfplan"
-
 ```
 
 ## Usage

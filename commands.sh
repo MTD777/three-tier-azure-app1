@@ -113,6 +113,8 @@ https://learn.microsoft.com/en-us/aspnet/core/fundamentals/servers/kestrel?view=
 https://andrewlock.net/why-isnt-my-aspnetcore-app-in-docker-working/ # Troubleshoot .NET
 https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.app/container-app-acr/main.bicep # Azure Quickstart templates, great for quickly deploying proof of conecepts / demo apps and architectures
 https://github.com/github/gitignore/blob/main/VisualStudio.gitignore # This is a project to check for common git ignore configs
+https://learn.microsoft.com/en-us/azure/azure-sql/database/single-database-create-terraform-quickstart?view=azuresql&tabs=azure-cli # Deploy Azure SQL with unique name
+https://raw.githubusercontent.com/MTD777/three-tier-azure-app1/main/setup-files/votingdata/votingdata.service # Raw Github content format
 
 
 
