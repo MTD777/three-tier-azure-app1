@@ -36,12 +36,12 @@ variable "sql_database_name" {
 
 variable "deployment_url_web" {
   type    = string
-  default = "https://raw.githubusercontent.com//MTD777/three-tier-azure-app1/setup-files/votingweb"
+  default = "https://raw.githubusercontent.com//MTD777/three-tier-azure-app1/main/setup-files/votingweb"
 }
 
 variable "deployment_url_data" {
   type    = string
-  default = "https://raw.githubusercontent.com//MTD777/three-tier-azure-app1/setup-files/votingdata"
+  default = "https://raw.githubusercontent.com//MTD777/three-tier-azure-app1/main/setup-files/votingdata"
 }
 
 
