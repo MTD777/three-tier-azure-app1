@@ -80,6 +80,4 @@ If you want to learn more about cloud deployment and management, you can expand 
 
 This project is licensed under the [MIT License](LICENSE).
 
-## References
-
 [Deploy an N-tier architecture]: https://learn.microsoft.com/en-us/training/modules/n-tier-architecture/3-deploy-n-tier-architecture
