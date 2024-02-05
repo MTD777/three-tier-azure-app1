@@ -35,6 +35,12 @@ az deployment group create --resource-group three-tier-rg --template-uri  https:
 az deployment group show --output table --resource-group three-tier-rg --name azuredeploy --query properties.outputs.webSiteUrl
 
 
+# Query resources
+
+az resource list --tag tier=presentation --output table
+az resource list --tag tier=application --output table
+az resource list --tag tier=data --output table
+
 ################################
 # Troubleshooting commands
 ################################

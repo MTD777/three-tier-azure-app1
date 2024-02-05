@@ -22,7 +22,7 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "The Azure region where resources will be created, e.g., westus "
+  description = "The Azure region where resources will be created, e.g., westus"
   type        = string
 }
 
@@ -34,10 +34,16 @@ variable "sql_database_name" {
 }
 
 
-variable "deployment_url" {
+variable "deployment_url_web" {
   type    = string
-  default = "https://raw.githubusercontent.com/MicrosoftDocs/mslearn-n-tier-architecture/master/Deployment/"
+  default = "https://raw.githubusercontent.com//MTD777/three-tier-azure-app1/setup-files/votingweb"
 }
+
+variable "deployment_url_data" {
+  type    = string
+  default = "https://raw.githubusercontent.com//MTD777/three-tier-azure-app1/setup-files/votingdata"
+}
+
 
 
 variable "IPAddress" {

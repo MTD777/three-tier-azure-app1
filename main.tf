@@ -270,10 +270,10 @@ SETTINGS
     {
       "commandToExecute": "sh setup-votingweb.sh",
       "fileUris": [
-        "${var.deployment_url}setup-votingweb.sh",
-        "${var.deployment_url}votingweb.conf",
-        "${var.deployment_url}votingweb.service",
-        "${var.deployment_url}votingweb.zip"
+        "${var.deployment_url_web}setup-votingweb.sh",
+        "${var.deployment_url_web}votingweb.conf",
+        "${var.deployment_url_web}votingweb.service",
+        "${var.deployment_url_web}votingweb.zip"
       ]
     }
 PROTECTED_SETTINGS
@@ -359,10 +359,10 @@ resource "azurerm_virtual_machine_extension" "backend_apache_ext" {
     {
       "skipDos2Unix": true,
       "fileUris": [
-        "${var.deployment_url}setup-votingdata.sh",
-        "${var.deployment_url}votingdata.conf",
-        "${var.deployment_url}votingdata.service",
-        "${var.deployment_url}votingdata.zip"
+        "${var.deployment_url_data}setup-votingdata.sh",
+        "${var.deployment_url_data}votingdata.conf",
+        "${var.deployment_url_data}votingdata.service",
+        "${var.deployment_url_data}votingdata.zip"
       ]
     }
 SETTINGS

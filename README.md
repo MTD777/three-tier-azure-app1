@@ -1,6 +1,4 @@
-# Project Title
-
-3 Tier Web app in Azure - IaaS + Azure SQL
+# 3 Tier Web app in Azure - IaaS + Azure SQL
 
 ## Table of Contents
 

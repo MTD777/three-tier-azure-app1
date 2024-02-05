@@ -4,13 +4,13 @@
 
 
 output "Website_IP_URL" {
-  value = "http://${azurerm_public_ip.frontend-pip}"
+  value = "http://${azurerm_public_ip.frontend-pip.ip_address}"
 }
 
 
 output "database_name" {
   description = "Database name of the Azure SQL Database created."
-  value       = azurerm_mssql_database.sql_db
+  value       = azurerm_mssql_database.sql_db.name
   
 }
 
