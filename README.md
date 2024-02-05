@@ -2,12 +2,16 @@
 
 ## Table of Contents
 
+- [Architecture](#architecture) 
 - [Overview](#overview)
-- [Architecture](#architecture)
 - [Getting Started](#getting-started)
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [License](#license)
+
+## Architecture
+
+![Architecture Diagram](<https://github.com/MTD777/three-tier-azure-app1/blob/main/images/3-tier-webapp.drawio.png>)
 
 ## Overview
 
@@ -18,10 +22,6 @@ This is a follow-along project for a simple 3-tier web application, as explained
 - Gain insights into Azure's 3-Tier App Deployment using IaaS (VMs) and PaaS (Azure SQL).
 
 Self-development and hands-on practice are the core focus of this project. I recommend checking the commands.sh file in this project, where I've documented troubleshooting notes that could be helpful in understanding how this 3-tier app connects and functions, along with some troubleshooting commands for the ASP.NET-based application.
-
-## Architecture
-
-![Architecture Diagram](<https://github.com/MTD777/three-tier-azure-app1/blob/main/images/3-tier-webapp.drawio.png>)
 
 ## Getting Started
 
