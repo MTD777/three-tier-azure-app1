@@ -23,8 +23,6 @@ Self-development and hands-on practice are the core focus of this project. I rec
 
 ![Architecture Diagram](<https://github.com/MTD777/three-tier-azure-app1/blob/main/images/3-tier-webapp.drawio.png>)
 
-Describe the components of the architecture and how they interact.
-
 ## Getting Started
 
 You will need terraform, git, and an Azure subscription to deploy this project app.

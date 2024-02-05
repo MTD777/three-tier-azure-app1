@@ -473,7 +473,7 @@ resource "azurerm_mssql_server" "sql_server" {
 }
 
 resource "azurerm_mssql_database" "sql_db" {
-  name                = "sql-db"
+  name                = "demo-sqldb"
   server_id = azurerm_mssql_server.sql_server.id
   sku_name  = "S0"
   collation = "SQL_Latin1_General_CP1_CI_AS"
