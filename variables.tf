@@ -15,6 +15,11 @@ variable "sql_password" {
   sensitive   = true
 }
 
+variable "cert_password" {
+  description = "PFX cert password"
+  type        = string
+  sensitive   = true
+}
 
 variable "resource_group_name" {
   description = "The name of the resource group"
@@ -25,7 +30,6 @@ variable "location" {
   description = "The Azure region where resources will be created, e.g., westus"
   type        = string
 }
-
 
 
 variable "sql_database_name" {

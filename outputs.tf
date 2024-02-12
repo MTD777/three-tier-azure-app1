@@ -18,3 +18,7 @@ output "sql_server_fqdn" {
   description = "Fully Qualified Domain Name (FQDN) of the Azure SQL Database created."
   value       = azurerm_mssql_server.sql_server.fully_qualified_domain_name
 }
+
+output "gateway_frontend_ip" {
+  value = "http://${azurerm_public_ip.appgw_pip.ip_address}"
+}

@@ -121,6 +121,19 @@ resource "azurerm_network_security_group" "frontend_nsg" {
     destination_address_prefix = "*"
   }
 
+  security_rule {
+    name                       = "appgw_inbound"
+    priority                   = 320
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "65200-65535"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  
+
 }
 
 
@@ -154,6 +167,11 @@ resource "azurerm_subnet_network_security_group_association" "backend_associatio
 
 }
 
+resource "azurerm_subnet_network_security_group_association" "appgw_association" {
+  subnet_id      = azurerm_subnet.app_gw_subnet.id
+  network_security_group_id = azurerm_network_security_group.frontend_nsg.id
+
+}
 
 ################################
 # Public IP
@@ -469,6 +487,7 @@ resource "azurerm_mssql_server" "sql_server" {
   version                      = "12.0"
   administrator_login          = var.sql_username
   administrator_login_password = var.sql_password
+  minimum_tls_version          = "1.2"
   tags                         = { tier = "data" }
 }
 
