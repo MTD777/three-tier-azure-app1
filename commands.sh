@@ -41,6 +41,81 @@ az resource list --tag tier=presentation --output table
 az resource list --tag tier=application --output table
 az resource list --tag tier=data --output table
 
+
+################################
+# Add SSH config to backend for E2E encryption
+################################
+
+# Ref - https://www.arubacloud.com/tutorial/how-to-enable-https-protocol-with-apache-2-on-ubuntu-20-04.aspx
+
+sudo nano /etc/apache2/conf-available/ssl-params.conf
+
+# Paste
+
+SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH
+
+    SSLProtocol All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+
+    SSLHonorCipherOrder On
+
+
+    Header always set X-Frame-Options DENY
+
+    Header always set X-Content-Type-Options nosniff
+
+    # Requires Apache >= 2.4
+
+    SSLCompression off
+
+    SSLUseStapling on
+
+    SSLStaplingCache "shmcb:logs/stapling-cache(150000)"
+
+
+    # Requires Apache >= 2.4.11
+
+    SSLSessionTickets Off
+
+
+# Then modify apache2 file to include the following config
+
+sudo nano /etc/apache2/sites-available/votingweb.conf
+
+# HTTPS configuration
+<VirtualHost *:443>
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:5000/
+    ProxyPassReverse / http://127.0.0.1:5000/
+    ErrorLog ${APACHE_LOG_DIR}/votingweb-error.log
+    CustomLog ${APACHE_LOG_DIR}/votingweb-access.log common
+
+    SSLEngine on
+    SSLCertificateFile "/var/www/votingweb/ssl-certs/certificate.crt"
+    SSLCertificateKeyFile "/var/www/votingweb/ssl-certs/privatekey.key"
+
+    # If you have a chain certificate, use the following line
+    # This the the full cert chain - 3 cerfificates chained
+    # SSLCertificateChainFile "/var/www/votingweb/ssl-certs/certchain.crt"
+</VirtualHost>
+
+# Create ssl-certs folder and copy the certs, you will need to convert them from PFX to CRT and KEY
+
+sudo mkdir /var/www/votingweb/ssl-certs
+
+openssl pkcs12 -in mfk-labs-wild-0924-pass.pfx -nocerts -out privatekey.key -nodes
+openssl pkcs12 -in mfk-labs-wild-0924-pass.pfx -clcerts -nokeys -out certificate.crt
+
+sudo cp privatekey.key /var/www/votingweb/ssl-certs
+sudo cp certificate.crt /var/www/votingweb/ssl-certs
+
+
+# Check service is running
+
+sudo a2enmod ssl
+sudo systemctl restart apache
+sudo systemctl status apache2.service
+
+
 ################################
 # Troubleshooting commands
 ################################

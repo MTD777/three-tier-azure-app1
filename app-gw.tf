@@ -43,6 +43,7 @@ locals {
   https_frontend_port_name       = "https"
   https_listener_name            = "https-listener"
   https_request_routing_rule_name = "https-route-to-backend"
+  https_setting_name            = "app-gw-backend-https-settings"
   ssl_certificate_name            = "mfk-ssl-certificate"
   
 }
@@ -152,6 +153,18 @@ resource "azurerm_application_gateway" "app_gw" {
     request_timeout       = 20
   }
 
+
+# End to End SSL - HTTPS Backend Pool
+
+  backend_http_settings {
+    name                  = local.https_setting_name
+    cookie_based_affinity = "Disabled"
+    path                  = "/"
+    port                  = 443
+    protocol              = "Https"
+    request_timeout       = 20
+  }
+
 ################################
 # Request Routing Rules
 ################################
@@ -185,7 +198,8 @@ resource "azurerm_application_gateway" "app_gw" {
     rule_type                  = "Basic"
     http_listener_name         = local.https_listener_name
     backend_address_pool_name  = local.backend_address_pool_name
-    backend_http_settings_name = local.http_setting_name
+    #backend_http_settings_name = local.http_setting_name # HTTP
+    backend_http_settings_name = local.https_setting_name # HTTPS 
   }
 
   
