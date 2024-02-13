@@ -244,7 +244,7 @@ resource "azurerm_linux_virtual_machine" "frontend_vm" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.frontend_nic.id]
-  size                  = "Standard_B1ls"
+  size                  = "Standard_B1s"
   tags                         = { tier = "presentation" }
 
   os_disk {
@@ -343,7 +343,7 @@ resource "azurerm_linux_virtual_machine" "backend_vm" {
   location              = azurerm_resource_group.rg.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.backend_nic.id]
-  size                  = "Standard_B1ls"
+  size                  = "Standard_B1s"
   tags                         = { tier = "application" }
 
   os_disk {
