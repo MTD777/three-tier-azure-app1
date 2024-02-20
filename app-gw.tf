@@ -163,6 +163,7 @@ resource "azurerm_application_gateway" "app_gw" {
     port                  = 443
     protocol              = "Https"
     request_timeout       = 20
+    host_name = "voteapp.mfk-labs.com"
   }
 
 ################################

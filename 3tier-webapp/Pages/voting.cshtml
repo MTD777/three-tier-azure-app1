@@ -1,0 +1,29 @@
+@page
+@model _3tier_webapp.Pages.VotingModel
+@{
+    ViewData["Title"] = "Voting Page";
+}
+
+<h1>Voting Page</h1>
+
+<h2>@Model.Question</h2>
+
+@foreach (var option in Model.Options)
+{
+    <div>
+        <span>@option.OptionText</span>
+        <span>Count: @option.VoteCount</span>
+        <form method="post">
+            <input type="hidden" name="optionText" value="@option.OptionText" />
+            <button type="submit" asp-page-handler="CastVote">Vote</button>
+        </form>
+    </div>
+}
+
+@* {
+    <div>
+        <span>@option.OptionText</span>
+        <span>Count: @option.VoteCount</span>
+        <button onclick="location.href='@Url.Action("CastVote", "Voting", new { optionText = option.OptionText })'">Vote</button>
+    </div>
+} *@

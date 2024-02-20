@@ -48,28 +48,28 @@ resource "azurerm_virtual_network" "tier_3app_vnet" {
 
 # Create subnets
 
-resource "azurerm_subnet" "frontend_subnet" {
-  name                 = "frontend-snet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.tier_3app_vnet.name
-  address_prefixes     = ["10.24.1.0/24"]
-}
+# resource "azurerm_subnet" "frontend_subnet" {
+#   name                 = "frontend-snet"
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   virtual_network_name = azurerm_virtual_network.tier_3app_vnet.name
+#   address_prefixes     = ["10.24.1.0/24"]
+# }
 
 
-resource "azurerm_subnet" "backend_subnet" {
-  name                 = "backend-snet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.tier_3app_vnet.name
-  address_prefixes     = ["10.24.2.0/24"]
-  service_endpoints = ["Microsoft.Sql"]
-}
+# resource "azurerm_subnet" "backend_subnet" {
+#   name                 = "backend-snet"
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   virtual_network_name = azurerm_virtual_network.tier_3app_vnet.name
+#   address_prefixes     = ["10.24.2.0/24"]
+#   service_endpoints = ["Microsoft.Sql"]
+# }
 
-resource "azurerm_subnet" "db_subnet" {
-  name                 = "db-snet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.tier_3app_vnet.name
-  address_prefixes     = ["10.24.3.0/24"]
-}
+# resource "azurerm_subnet" "db_subnet" {
+#   name                 = "db-snet"
+#   resource_group_name  = azurerm_resource_group.rg.name
+#   virtual_network_name = azurerm_virtual_network.tier_3app_vnet.name
+#   address_prefixes     = ["10.24.3.0/24"]
+# }
 
 
 
@@ -137,13 +137,13 @@ resource "azurerm_network_security_group" "frontend_nsg" {
 }
 
 
-resource "azurerm_network_security_group" "backend_nsg" {
-  name                = "BackendNSG"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                         = { tier = "application" }
+# resource "azurerm_network_security_group" "backend_nsg" {
+#   name                = "BackendNSG"
+#   location            = azurerm_resource_group.rg.location
+#   resource_group_name = azurerm_resource_group.rg.name
+#   tags                         = { tier = "application" }
 
-}
+# }
 
 
 ################################
@@ -155,17 +155,17 @@ resource "azurerm_network_security_group" "backend_nsg" {
 
 # Frontend subnet Association
 
-resource "azurerm_subnet_network_security_group_association" "frontend_association" {
-  subnet_id      = azurerm_subnet.frontend_subnet.id
-  network_security_group_id = azurerm_network_security_group.frontend_nsg.id
+# resource "azurerm_subnet_network_security_group_association" "frontend_association" {
+#   subnet_id      = azurerm_subnet.frontend_subnet.id
+#   network_security_group_id = azurerm_network_security_group.frontend_nsg.id
 
-}
+# }
 
-resource "azurerm_subnet_network_security_group_association" "backend_association" {
-  subnet_id      = azurerm_subnet.backend_subnet.id
-  network_security_group_id = azurerm_network_security_group.backend_nsg.id
+# resource "azurerm_subnet_network_security_group_association" "backend_association" {
+#   subnet_id      = azurerm_subnet.backend_subnet.id
+#   network_security_group_id = azurerm_network_security_group.backend_nsg.id
 
-}
+# }
 
 resource "azurerm_subnet_network_security_group_association" "appgw_association" {
   subnet_id      = azurerm_subnet.app_gw_subnet.id
@@ -178,15 +178,15 @@ resource "azurerm_subnet_network_security_group_association" "appgw_association"
 ################################
 
 # Public IP Address for Frontend VM
-resource "azurerm_public_ip" "frontend-pip" {
-  name                = "frontend-pip"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  allocation_method   = "Static"
-  sku = "Standard"
-  availability_zone   = "No-Zone"
-  tags                         = { tier = "presentation" }
-}
+# resource "azurerm_public_ip" "frontend-pip" {
+#   name                = "frontend-pip"
+#   location            = azurerm_resource_group.rg.location
+#   resource_group_name = azurerm_resource_group.rg.name
+#   allocation_method   = "Static"
+#   sku = "Standard"
+#   availability_zone   = "No-Zone"
+#   tags                         = { tier = "presentation" }
+# }
 
 
 ################################
@@ -194,40 +194,40 @@ resource "azurerm_public_ip" "frontend-pip" {
 ################################
 
 
-resource "azurerm_network_interface" "frontend_nic" {
-  name                = "FrontendNIC"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                         = { tier = "presentation" }
+# resource "azurerm_network_interface" "frontend_nic" {
+#   name                = "FrontendNIC"
+#   location            = azurerm_resource_group.rg.location
+#   resource_group_name = azurerm_resource_group.rg.name
+#   tags                         = { tier = "presentation" }
 
-  ip_configuration {
-    name                          = "Frontend_nic_configuration"
-    subnet_id                     = azurerm_subnet.frontend_subnet.id
-    private_ip_address_allocation = "static"
-    #private_ip_address_allocation = "Dynamic"
-    private_ip_address            = "${cidrhost("10.24.1.0/24", 4)}"
-    public_ip_address_id          = azurerm_public_ip.frontend-pip.id
+#   ip_configuration {
+#     name                          = "Frontend_nic_configuration"
+#     subnet_id                     = azurerm_subnet.frontend_subnet.id
+#     private_ip_address_allocation = "static"
+#     #private_ip_address_allocation = "Dynamic"
+#     private_ip_address            = "${cidrhost("10.24.1.0/24", 4)}"
+#     public_ip_address_id          = azurerm_public_ip.frontend-pip.id
     
-  }
-}
+#   }
+# }
 
-resource "azurerm_network_interface" "backend_nic" {
-  name                = "BackendNIC"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                         = { tier = "application" }
+# resource "azurerm_network_interface" "backend_nic" {
+#   name                = "BackendNIC"
+#   location            = azurerm_resource_group.rg.location
+#   resource_group_name = azurerm_resource_group.rg.name
+#   tags                         = { tier = "application" }
   
 
-  ip_configuration {
-    name                          = "Backend_nic_configuration"
-    subnet_id                     = azurerm_subnet.backend_subnet.id
-    private_ip_address_allocation = "static"
-    #private_ip_address_allocation = "Dynamic"
-    private_ip_address            = "${cidrhost("10.24.2.0/24", 4)}"
-    #public_ip_address_id          = azurerm_public_ip.frontend-pip.id
+#   ip_configuration {
+#     name                          = "Backend_nic_configuration"
+#     subnet_id                     = azurerm_subnet.backend_subnet.id
+#     private_ip_address_allocation = "static"
+#     #private_ip_address_allocation = "Dynamic"
+#     private_ip_address            = "${cidrhost("10.24.2.0/24", 4)}"
+#     #public_ip_address_id          = azurerm_public_ip.frontend-pip.id
     
-  }
-}
+#   }
+# }
 
 
 ################################
@@ -239,63 +239,67 @@ resource "azurerm_network_interface" "backend_nic" {
 
 # Frontend VM
 
-resource "azurerm_linux_virtual_machine" "frontend_vm" {
-  name                  = "FrontendVM"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.frontend_nic.id]
-  size                  = "Standard_B1s"
-  tags                         = { tier = "presentation" }
+# resource "azurerm_linux_virtual_machine" "frontend_vm" {
+#   name                  = "FrontendVM"
+#   location              = azurerm_resource_group.rg.location
+#   resource_group_name   = azurerm_resource_group.rg.name
+#   network_interface_ids = [azurerm_network_interface.frontend_nic.id]
+#   size                  = "Standard_B1s"
+#   tags                         = { tier = "presentation" }
 
-  os_disk {
-    name                 = "FrontendOsDisk"
-    caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
-  }
+#   os_disk {
+#     name                 = "FrontendOsDisk"
+#     caching              = "ReadWrite"
+#     storage_account_type = "Premium_LRS"
+#   }
 
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
-  }
+#   source_image_reference {
+#     publisher = "Canonical"
+#     offer     = "UbuntuServer"
+#     sku       = "18.04-LTS"
+#     version   = "latest"
+#   }
 
-    computer_name                   = "FrontendVM"
-    admin_username                  = var.sql_username
-    admin_password                  = var.sql_password
-    disable_password_authentication = false
+#     computer_name                   = "FrontendVM"
+#     admin_username                  = var.sql_username
+#     admin_password                  = var.sql_password
+#     disable_password_authentication = false
 
-}
-
-
-resource "azurerm_virtual_machine_extension" "frontend_apache_ext" {
-  name                 = "apache-ext"
-  virtual_machine_id   = azurerm_linux_virtual_machine.frontend_vm.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
-  auto_upgrade_minor_version = true
+# }
 
 
+# resource "azurerm_virtual_machine_extension" "frontend_apache_ext" {
+#   name                 = "apache-ext"
+#   virtual_machine_id   = azurerm_linux_virtual_machine.frontend_vm.id
+#   publisher            = "Microsoft.Azure.Extensions"
+#   type                 = "CustomScript"
+#   type_handler_version = "2.0"
+#   auto_upgrade_minor_version = true
 
-  settings = <<SETTINGS
-    {
-      "skipDos2Unix": true
-    }
-SETTINGS
 
-  protected_settings = <<PROTECTED_SETTINGS
-    {
-      "commandToExecute": "sh setup-votingweb.sh",
-      "fileUris": [
-        "${var.deployment_url_web}setup-votingweb.sh",
-        "${var.deployment_url_web}votingweb.conf",
-        "${var.deployment_url_web}votingweb.service",
-        "${var.deployment_url_web}votingweb.zip"
-      ]
-    }
-PROTECTED_SETTINGS
 
+#   settings = <<SETTINGS
+#     {
+#       "skipDos2Unix": true
+#     }
+# SETTINGS
+
+#   protected_settings = <<PROTECTED_SETTINGS
+#     {
+#       "commandToExecute": "sh setup-votingweb.sh",
+#       "fileUris": [
+#         "${var.deployment_url_web}setup-votingweb.sh",
+#         "${var.deployment_url_web}votingweb.conf",
+#         "${var.deployment_url_web}votingweb.service",
+#         "${var.deployment_url_web}votingweb.zip"
+#       ]
+#     }
+# PROTECTED_SETTINGS
+
+
+#     depends_on = [
+#     azurerm_linux_virtual_machine.frontend_vm
+#   ]
 
 #   settings = <<SETTINGS
 #     {
@@ -330,67 +334,71 @@ PROTECTED_SETTINGS
   #     ]
   #   }
 
-    depends_on = [
-    azurerm_linux_virtual_machine.frontend_vm
-  ]
-}
+
+#}
 
 
 # Backend VM
 
-resource "azurerm_linux_virtual_machine" "backend_vm" {
-  name                  = "BackendVM"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.backend_nic.id]
-  size                  = "Standard_B1s"
-  tags                         = { tier = "application" }
+# resource "azurerm_linux_virtual_machine" "backend_vm" {
+#   name                  = "BackendVM"
+#   location              = azurerm_resource_group.rg.location
+#   resource_group_name   = azurerm_resource_group.rg.name
+#   network_interface_ids = [azurerm_network_interface.backend_nic.id]
+#   size                  = "Standard_B1s"
+#   tags                         = { tier = "application" }
 
-  os_disk {
-    name                 = "BackendOsDisk"
-    caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
-  }
+#   os_disk {
+#     name                 = "BackendOsDisk"
+#     caching              = "ReadWrite"
+#     storage_account_type = "Premium_LRS"
+#   }
 
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
-  }
+#   source_image_reference {
+#     publisher = "Canonical"
+#     offer     = "UbuntuServer"
+#     sku       = "18.04-LTS"
+#     version   = "latest"
+#   }
 
-  computer_name                   = "BackendVM"
-  admin_username                  = var.sql_username
-  admin_password                  = var.sql_password
-  disable_password_authentication = false
-}
+#   computer_name                   = "BackendVM"
+#   admin_username                  = var.sql_username
+#   admin_password                  = var.sql_password
+#   disable_password_authentication = false
+# }
 
-resource "azurerm_virtual_machine_extension" "backend_apache_ext" {
-  name                 = "backend-apache-ext"
-  virtual_machine_id   = azurerm_linux_virtual_machine.backend_vm.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.1"
-  auto_upgrade_minor_version = true
+# resource "azurerm_virtual_machine_extension" "backend_apache_ext" {
+#   name                 = "backend-apache-ext"
+#   virtual_machine_id   = azurerm_linux_virtual_machine.backend_vm.id
+#   publisher            = "Microsoft.Azure.Extensions"
+#   type                 = "CustomScript"
+#   type_handler_version = "2.1"
+#   auto_upgrade_minor_version = true
 
-  settings = <<SETTINGS
-    {
-      "skipDos2Unix": true,
-      "fileUris": [
-        "${var.deployment_url_data}setup-votingdata.sh",
-        "${var.deployment_url_data}votingdata.conf",
-        "${var.deployment_url_data}votingdata.service",
-        "${var.deployment_url_data}votingdata.zip"
-      ]
-    }
-SETTINGS
+#   settings = <<SETTINGS
+#     {
+#       "skipDos2Unix": true,
+#       "fileUris": [
+#         "${var.deployment_url_data}setup-votingdata.sh",
+#         "${var.deployment_url_data}votingdata.conf",
+#         "${var.deployment_url_data}votingdata.service",
+#         "${var.deployment_url_data}votingdata.zip"
+#       ]
+#     }
+# SETTINGS
 
-  protected_settings = <<PROTECTED_SETTINGS
-    {
-      "commandToExecute": "sh setup-votingdata.sh ${random_pet.sql-var.id} ${var.sql_username} ${var.sql_password}"
+#   protected_settings = <<PROTECTED_SETTINGS
+#     {
+#       "commandToExecute": "sh setup-votingdata.sh ${random_pet.sql-var.id} ${var.sql_username} ${var.sql_password}"
       
-    }
-PROTECTED_SETTINGS
+#     }
+# PROTECTED_SETTINGS
+
+#   depends_on = [
+#     azurerm_linux_virtual_machine.backend_vm
+#   ]
+# }
+
 
 # Tried the config below - but gave errors
 
@@ -429,10 +437,6 @@ PROTECTED_SETTINGS
     
   # }
 
-  depends_on = [
-    azurerm_linux_virtual_machine.backend_vm
-  ]
-}
 
 # For next steps, replace VMs with App service and web apps
 
@@ -500,14 +504,14 @@ resource "azurerm_mssql_database" "sql_db" {
 }
 
 
-resource "azurerm_mssql_virtual_network_rule" "sql-vnet-rule" {
-  name      = "sql-vnet-rule"
-  server_id = azurerm_mssql_server.sql_server.id
-  subnet_id = azurerm_subnet.backend_subnet.id
+# resource "azurerm_mssql_virtual_network_rule" "sql-vnet-rule" {
+#   name      = "sql-vnet-rule"
+#   server_id = azurerm_mssql_server.sql_server.id
+#   subnet_id = azurerm_subnet.backend_subnet.id
 
-  depends_on = [
-    azurerm_mssql_server.sql_server
-  ]
-}
+#   depends_on = [
+#     azurerm_mssql_server.sql_server
+#   ]
+# }
 
 

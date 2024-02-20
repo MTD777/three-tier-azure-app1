@@ -1,3 +1,6 @@
+# .NET 8 
+
+
 # Github CLI commands
 
 gh auth login
@@ -16,6 +19,7 @@ git pull
 git fetch
 git clone <https://URL>
 git checkout -b branchName # creates and switch to new branch
+git clone -b <branchname> <https://URL>
 
 
 # Configuration documentation - I am basing this project in the MS learn doc below
